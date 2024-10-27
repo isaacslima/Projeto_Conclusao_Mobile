@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Despesas em Viagens</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="row">
+    <h2>Gestão de Despesas em Viagens</h2>
+    <form id="expense-form" class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="description" type="text" class="validate" required>
+          <label for="description">Descrição do Item</label>
+        </div>
+
+        <div class="input-field col s12">
+          <input id="quantity" type="number" required>
+          <label for="quantity">Quantidade/Unidade</label>
+        </div>
+
+        <div class="input-field col s12">
+          <input id="value" type="number" step="0.01" required>
+          <label for="value">Valor</label>
+        </div>
+      </div>
+      
+
+      <div class="input-field col s12">
+        <select id="currencyFrom">
+          <option value="BRL" selected>BRL</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+        </select>
+        <label>Moeda origem</label>
+      </div>
+
+      <div class="input-field col s12">
+        <select id="currencyTo">
+          <option value="BRL" selected>BRL</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+        </select>
+        <label>Moeda destino</label>
+      </div>
+
+      <button class="waves-effect waves-light btn" type="submit"><i class="material-icons left">payments</i>Adicionar</button>
+    </form>
+
+    <div id="expenses-list" class="expense-list"></div>
+
+    <div class="total">
+      <p id="total-original">Total (Moeda de Origem): 0.00</p>
+      <p id="total-converted">Total (Moeda de Destino): 0.00</p>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("js/sw.js").then(function(reg) {
+            console.log("Service worker has been registered for scope: " + reg.scope);
+        });
+    }
+   </script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

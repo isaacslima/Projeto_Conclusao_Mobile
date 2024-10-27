@@ -26,6 +26,10 @@ document.getElementById('expense-form').addEventListener('submit', async (e) => 
     updateExpenseList();
     updateTotals();
     e.target.reset();
+
+    let message = description + " adicionado."
+
+    M.toast({html: message})
   });
   
   async function convertCurrency(value, from, to) {
@@ -42,29 +46,34 @@ document.getElementById('expense-form').addEventListener('submit', async (e) => 
       const item = document.createElement('div');
       item.className = 'expense-item';
       item.innerHTML = `
-        <span>${expense.description} (Qtd. ${expense.quantity}): ${expense.value} ${expense.currencyFrom} ➡ ${expense.convertedValue} ${expense.currencyTo}</span>
+          <div class="card-panel">
+          <div class="row">
+            <p><b>Descrição: </b> ${expense.description}</p> 
+            <p><b>Quantidade: </b> ${expense.quantity}</p> 
+            <p><b>Valor unitário: </b> $${expense.value} ${expense.currencyFrom}</p> 
+            <p><b>Total em  </b> ${expense.currencyTo} $${expense.convertedValue}</p> 
+          </div>
+            <span 
+              class="material-icons edit-icon" 
+              onclick="editExpense(${index})"
+              style="cursor: pointer; margin-left: 10px; color: #007bff;">
+              edit
+            </span>
 
-        <span 
-            class="material-icons edit-icon" 
-            onclick="editExpense(${index})"
-            style="cursor: pointer; margin-left: 10px; color: #007bff;">
-            edit
-        </span>
-
-        <span 
-            class="material-icons delete-icon" 
-            onclick="deleteExpense(${index})"
-            style="cursor: pointer; margin-left: 10px; color: #dc3545;">
-            delete
-        </span>
-      `;
+            <span 
+              class="material-icons delete-icon" 
+              onclick="deleteExpense(${index})"
+              style="cursor: pointer; margin-left: 10px; color: #dc3545;">
+              delete
+            </span>
+          </div>`;
       list.appendChild(item);
     });
   }
   
   function updateTotals() {
-    const totalOriginal = expenses.reduce((acc, exp) => acc + (exp.value * exp.quantity), 0); // Corrigido
-    const totalConverted = expenses.reduce((acc, exp) => acc + exp.convertedValue, 0); // Corrigido
+    const totalOriginal = expenses.reduce((acc, exp) => acc + (exp.value * exp.quantity), 0);
+    const totalConverted = expenses.reduce((acc, exp) => acc + exp.convertedValue, 0);
   
     document.getElementById('total-original').textContent = `Total (Moeda de Origem): ${totalOriginal.toFixed(2)}`;
     document.getElementById('total-converted').textContent = `Total (Moeda de Destino): ${totalConverted.toFixed(2)}`;
@@ -83,21 +92,17 @@ document.getElementById('expense-form').addEventListener('submit', async (e) => 
   }
 
   function deleteExpense(index) {
-    const deletedItem = expenses[index].description; // Primeiro pega o item a ser deletado
+    const deletedItem = expenses[index].description;
     
-    // Exibe a mensagem de confirmação
     const confirmation = confirm(`Tem certeza de que deseja deletar o item "${deletedItem}"?`);
   
-    // Se o usuário confirmar, o item será deletado
     if (confirmation) {
-      expenses.splice(index, 1); // Remove o item da lista
+      expenses.splice(index, 1);
       updateExpenseList();
       updateTotals();
-      
-      // Notificação ou alerta
-      alert(`O item "${deletedItem}" foi deletado.`);
+
+      M.toast({html: `O item "${deletedItem}" foi deletado.`})
     } else {
-      // Se o usuário cancelar, nada acontece
-      alert(`A exclusão do item "${deletedItem}" foi cancelada.`);
+      M.toast({html: `A exclusão do item "${deletedItem}" foi cancelada.`})
     }
   }
