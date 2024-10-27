@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Despesas em Viagens</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="manifest" href="../manifest.json">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h2>Gestão de Despesas em Viagens</h2>
+    <form id="expense-form">
+      <input type="text" id="description" placeholder="Descrição do Item" required>
+      <input type="number" id="quantity" placeholder="Quantidade/Unidade" required>
+      <input type="number" id="value" placeholder="Valor" step="0.01" required>
+
+      <span class="spanCurrencyFrom">Moeda origem</span>
+      <select id="currencyFrom" required>
+        <option value="BRL" selected>BRL</option>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+      </select>
+
+      <span class="spanCurrencyTo">Moeda destino</span>
+      <select id="currencyTo" required>
+        <option value="BRL" selected>BRL</option>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+      </select>
+
+      <button type="submit">Adicionar</button>
+    </form>
+
+    <div id="expenses-list" class="expense-list"></div>
+
+    <div class="total">
+      <p id="total-original">Total (Moeda de Origem): 0.00</p>
+      <p id="total-converted">Total (Moeda de Destino): 0.00</p>
+    </div>
+  </div>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>
