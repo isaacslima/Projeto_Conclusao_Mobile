@@ -81,9 +81,23 @@ document.getElementById('expense-form').addEventListener('submit', async (e) => 
     updateExpenseList();
     updateTotals();
   }
-  
+
   function deleteExpense(index) {
-    expenses.splice(index, 1);
-    updateExpenseList();
-    updateTotals();
+    const deletedItem = expenses[index].description; // Primeiro pega o item a ser deletado
+    
+    // Exibe a mensagem de confirmação
+    const confirmation = confirm(`Tem certeza de que deseja deletar o item "${deletedItem}"?`);
+  
+    // Se o usuário confirmar, o item será deletado
+    if (confirmation) {
+      expenses.splice(index, 1); // Remove o item da lista
+      updateExpenseList();
+      updateTotals();
+      
+      // Notificação ou alerta
+      alert(`O item "${deletedItem}" foi deletado.`);
+    } else {
+      // Se o usuário cancelar, nada acontece
+      alert(`A exclusão do item "${deletedItem}" foi cancelada.`);
+    }
   }
